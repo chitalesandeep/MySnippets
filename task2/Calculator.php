@@ -73,7 +73,7 @@ class Calculator
 				{
 					$val = intval($arguments[$i]);
 					
-					if($val < 1000)
+					if($val > 0)
 					{
 						$sum = $sum + $val;
 					}

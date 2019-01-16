@@ -1,5 +1,5 @@
 <?php //**** task 3 ****
-class Calculator
+class Calculator extends Exception
 {
 
 	public function __construct()
@@ -29,19 +29,13 @@ class Calculator
 		 {
 			if($argv[2] != null || $argv[2] != "")
 			{		
-				//$arguments = explode(",",$argv[2]);
+				$arguments = explode(",",$argv[2]);
 				
-				//$pattern = '/[,\n]/';
-				//$arguments =  preg_split( $pattern,$argv[2] );	
-
-				$ready = str_replace('\n',',', $argv[2]); //echo $ready;
-				$arguments = explode(',', $ready);
-
 				for($i = 0;$i < count($arguments); $i++)
 				{
 					$val = intval($arguments[$i]);
 					
-					if($val > 0)
+					if($val < 1000)
 					{
 						$sum = $sum + $val;
 					}

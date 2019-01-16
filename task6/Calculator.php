@@ -1,5 +1,5 @@
 <?php //**** task 3 ****
-class Calculator
+class Calculator extends Exception
 {
 
 	public function __construct()
@@ -21,6 +21,11 @@ class Calculator
 			}
 	} 
 	
+	public function errorMessage() {
+
+    $errorMsg = 'Error: Negative numbers ('.$this->getMessage().') not allowed';
+    return $errorMsg;
+  }
 	public static function add()
 	{
 		$sum = 0; $argv = $_SERVER['argv'];
@@ -36,28 +41,36 @@ class Calculator
 
 				$arguments = explode($delimeter,$string15); //print_r($arguments); exit;
 
+				$flag = 0;
+				
 				for($i = 0;$i < count($arguments); $i++)
 				{
 					$val = intval($arguments[$i]); //echo "val : ".$val."<br>";
 					
+					if($val > 0 && $val < 1000)
+					{
+						$sum = $sum + $val;
+					}
+					else
+					{
+						$numbers10[] = $val;
+						$flag = 1;
+					}
+				}
+				
+				if($flag == 1)
+				{
+					
+					$numString = implode(",",$numbers10);
+					
 					try {
-							if($val > 0 && $val < 1000)
-							{
-								$sum = $sum + $val;
-							}
-							else
-							{
-								throw new Exception("Not allowed negative number");
-								break;
-							}
-						}
+							throw new Exception($numString);
+					}
 
-						//catch exception
-						catch(Exception $e) {
-						  echo 'Error: ' .$e->getMessage();
-						  exit;
-						}
-
+					catch(Exception $e) {
+					  echo 'Error: Negative numbers (' .$e->getMessage().') not allowed';
+					  exit;
+					}
 				}
 				
 				echo $sum;
